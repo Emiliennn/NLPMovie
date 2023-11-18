@@ -5,18 +5,14 @@ from datetime import datetime
 
 # package NTLK en plus de TextBlob
 
-# ID du film sur IMDb
 film_id = 'tt0111161'  # Exemple avec "The Shawshank Redemption"
 
 date_sortie = datetime(1994, 9, 23)
 
-# URL de la page des avis sur IMDb
 url = f"https://www.imdb.com/title/{film_id}/reviews"
 
-# Faire la requête HTTP
 response = requests.get(url)
 
-# Initialiser un dictionnaire pour stocker les avis et leurs dates
 reviews_dict = {}
 
 if response.status_code == 200:
@@ -45,7 +41,6 @@ avis_avant = {}
 avis_apres = {}
 
 for key, review in reviews_dict.items():
-    # Extraire la date de l'avis directement de la clé
     date_avis_str = key.replace("Avis du ", "")
     try:
         date_avis = datetime.strptime(date_avis_str, '%d %B %Y')
@@ -56,7 +51,7 @@ for key, review in reviews_dict.items():
     except ValueError:
         print(f"Erreur de conversion de date pour: {key}")
 
-# Afficher les résultats
+
 print("Avis Avant la Sortie:")
 for date, review in avis_avant.items():
     print(f"{date}: {review}\n")
