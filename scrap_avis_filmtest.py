@@ -7,7 +7,7 @@ from datetime import datetime
 
 film_id = 'tt0111161'  # Exemple avec "The Shawshank Redemption"
 
-date_sortie = datetime(1994, 9, 23)
+date_sortie = datetime(1994, 9, 23)  # il serait plus judicieux de récupérer cette date depuis TMDB
 
 url = f"https://www.imdb.com/title/{film_id}/reviews"
 

@@ -17,7 +17,7 @@ movies_dict = {}
 movies_list = []
 
 start_date = "2022-01-01"
-end_date = "2022-12-31"
+end_date = "2022-01-31"
 
 initial_url = f"{base_url}discover/movie?api_key={api_key}&primary_release_date.gte={start_date}&primary_release_date.lte={end_date}&region=FR"
 initial_response = requests.get(initial_url)
@@ -29,7 +29,6 @@ def get_movies_and_datesrelease(initial_response, initial_url):
         for page in range(1, total_pages + 1):
             discover_url = f"{initial_url}&page={page}"
             response = requests.get(discover_url)
-            
             if response.status_code == 200:
                 movies_data = response.json()['results']
                 for movie in movies_data:
@@ -49,3 +48,4 @@ movies_df, total_pages = get_movies_and_datesrelease(initial_response, initial_u
 print("Le nb de page est de :", total_pages)
 print("Le nb de film extrait est de :", len(movies_df))
 print("Le nb de film unique est de :", len(movies_df['Title'].unique()))
+print("Voici les 10 premiers films :\n", movies_df.head(10))
