@@ -11,7 +11,7 @@ with open('clefAPI.json', 'r') as config_file:
 
 api_key = config['tmdb']['api_key']
 
-film_id = 'tt0111161'  
+film_id = '803114'  
 #tt0111161 # Exemple avec "The Shawshank Redemption"
 # 899082 # Harry potter 20 ans après
 
@@ -58,7 +58,7 @@ print("Nb d'avis pour ce film :",len(reviews_dict))
 for key, review in reviews_dict.items():
     blob = TextBlob(review)
     sentiment = blob.sentiment
-    print(f"{key}: Sentiment = {sentiment.polarity}, Subjectivity = {sentiment.subjectivity}")
+    print(f"{key}: Sentiment polarity = {sentiment.polarity}, Sentiment Subjectivity = {sentiment.subjectivity}")
     
 avis_avant = {}
 avis_apres = {}
