@@ -32,10 +32,13 @@ def get_imdb_reviews(movie_id):
     return reviews
 
 def analyze_sentiments(reviews):
-    sentiments = [TextBlob(review[0]).sentiment.polarity for review in reviews]
-    if sentiments:
-        return sum(sentiments) / len(sentiments)
-    return 0
+    polarities = [TextBlob(review[0]).sentiment.polarity for review in reviews]
+    subjectivities = [TextBlob(review[0]).sentiment.subjectivity for review in reviews]
+
+    avg_polarity = sum(polarities) / len(polarities) if polarities else 0
+    avg_subjectivity = sum(subjectivities) / len(subjectivities) if subjectivities else 0
+
+    return avg_polarity, avg_subjectivity
 
 # Remplacez 'tt0111161' par l'ID du film souhaité
 movie_id = 'tt0111161'
@@ -45,8 +48,10 @@ reviews = get_imdb_reviews(movie_id)
 before_release = [review for review in reviews if review[1] < release_date]
 after_release = [review for review in reviews if review[1] >= release_date]
 
-sentiment_before = analyze_sentiments(before_release)
-sentiment_after = analyze_sentiments(after_release)
+sentiment_before, subjectivity_before = analyze_sentiments(before_release)
+sentiment_after, subjectivity_after = analyze_sentiments(after_release)
 
 print(f"Moyenne des sentiments avant la sortie : {sentiment_before}")
+print(f"Moyenne de la subjectivité avant la sortie : {subjectivity_before}")
 print(f"Moyenne des sentiments après la sortie : {sentiment_after}")
+print(f"Moyenne de la subjectivité après la sortie : {subjectivity_after}")
