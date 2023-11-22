@@ -34,7 +34,8 @@ def get_movies_and_datesrelease(initial_response, initial_url):
                 for movie in movies_data:
                     title = movie.get("title", "Titre Inconnu")
                     release_date = movie.get("release_date", "Date Inconnue")
-                    movies_list.append({'Title': title, 'Release Date': release_date})
+                    movie_id = movie.get("id", "ID Inconnu")  # Récupérer l'ID du film
+                    movies_list.append({'ID': movie_id, 'Title': title, 'Release Date': release_date})
             else:
                 print("Erreur lors de la requête :", response.status_code)
                 break
