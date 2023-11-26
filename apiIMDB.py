@@ -5,6 +5,17 @@ import requests
 from datetime import datetime
 import json
 import re
+import pandas as pd
+#import nltk
+
+############ API TMDb #####################
+
+with open('clefAPI.json', 'r') as config_file:
+    config = json.load(config_file)
+
+api_key = config['tmdb']['api_key']
+
+############ Fonctions #####################
 
 def get_movie_release_date(movie_id):
     ia = IMDb()
@@ -40,7 +51,51 @@ def analyze_sentiments(reviews):
 
     return avg_polarity, avg_subjectivity
 
-# Remplacez 'tt0111161' par l'ID du film souhaité
+
+def get_movies_between_dates(start_date, end_date, api_key):
+    base_url = "https://api.themoviedb.org/3/discover/movie"
+    url = f"{base_url}?api_key={api_key}&primary_release_date.gte={start_date}&primary_release_date.lte={end_date}&region=FR"
+    response = requests.get(url)
+    if response.status_code == 200:
+        movies_data = response.json()['results']
+        return [(movie['id'], movie['title']) for movie in movies_data]
+    else:
+        print("Erreur lors de la requête :", response.status_code)
+        return []
+
+def get_movies_with_imdb_id(start_date, end_date, api_key):
+    base_url = "https://api.themoviedb.org/3/discover/movie"
+    url = f"{base_url}?api_key={api_key}&primary_release_date.gte={start_date}&primary_release_date.lte={end_date}&region=FR"
+    response = requests.get(url)
+    if response.status_code == 200:
+        movies_data = response.json()['results']
+        return [(movie['id'], movie['imdb_id'], movie['title']) for movie in movies_data if 'imdb_id' in movie]
+    else:
+        print("Erreur lors de la requête :", response.status_code)
+        return []
+
+def process_movies(movie_ids):
+    results = []
+    for movie_id in movie_ids:
+        release_date = get_movie_release_date(str(movie_id))
+        reviews = get_imdb_reviews('tt' + str(movie_id))
+        after_release = [review for review in reviews if review[1] >= release_date]
+        sentiment_after, subjectivity_after = analyze_sentiments(after_release)
+        results.append({'Movie ID': movie_id, 'Sentiment After': sentiment_after, 'Subjectivity After': subjectivity_after, 'Release Date': release_date, 'Nb avis': len(reviews)})
+    return results
+
+############# Main #####################
+
+start_date = "2022-01-01"
+end_date = "2022-01-31"
+
+movies = get_movies_with_imdb_id(start_date, end_date, api_key)
+results = process_movies([movie[0] for movie in movies])
+results_df = pd.DataFrame(results)
+
+print(results_df)
+
+#Remplacez 'tt0111161' par l'ID du film souhaité
 movie_id = 'tt0111161'
 release_date = get_movie_release_date(movie_id[2:])
 

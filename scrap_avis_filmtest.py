@@ -11,7 +11,7 @@ with open('clefAPI.json', 'r') as config_file:
 
 api_key = config['tmdb']['api_key']
 
-film_id = '803114'  
+film_id = 'tt0111161'  
 #tt0111161 # Exemple avec "The Shawshank Redemption"
 # 899082 # Harry potter 20 ans après
 
