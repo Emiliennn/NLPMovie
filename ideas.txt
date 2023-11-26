@@ -1,0 +1,29 @@
+############################################################################
+################################# Consignes ################################
+############################################################################
+
+Faire un fichier qui explique la démarche
+
+PLUS ON UTILISE DES CHOSES QU'ON A VUES, MIEUX C'EST
+
+Voir TD6 car c'est une application de A à Z; ça reprend tout
+
+
+
+############################################################################
+################################### Idées ##################################
+############################################################################
+
+Réaliser une application pour savoir quoi regarder lorsque l'on n'a pas d'idées.
+
+##### Soit on a assez d'avis avant:
+Dans ce cas, on peut intégrer des scores de performance du film (capacité à ne pas décevoir)
+
+##### Dans tous les cas: 
+Interface graphique avec:
+    - un menu (top x des films avec le plus de classification d'avis (en %) de plus haut niveau)
+    - une barre de recherche qui mène vers les informations du film et une analyse des avis du film
+    (% de chacune des catégories de classification, par exemple "il y a eu tant de gens déçus"; ... ; score de capacité à ne pas décevoir si possible)
+
+
+Récupérer aussi les stars, pour comparer l'avis de la personne avec son évaluation
