@@ -7,6 +7,7 @@ import json
 import re
 import pandas as pd
 #import nltk
+# pip install -U textblob-fr # pour installer le package français
 
 ############ API TMDb #####################
 
@@ -88,6 +89,8 @@ def process_movies(movie_ids):
 
 start_date = "2022-01-01"
 end_date = "2022-01-31"
+
+# RAPPEL : PB DE DATES !!
 
 movies = get_movies_with_imdb_id(start_date, end_date, api_key)
 results = process_movies([movie[0] for movie in movies])
