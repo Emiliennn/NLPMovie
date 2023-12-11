@@ -53,7 +53,6 @@ print("Nb d'avis pour ce film :",len(reviews_dict))
 
 # Classer les avis en fonction de la date de sortie du film
 
-print("Nb d'avis pour ce film :",len(reviews_dict))
 
 for key, review in reviews_dict.items():
     blob = TextBlob(review)
@@ -69,10 +68,11 @@ for review_date, review_text in reviews_dict.items():
     else:
         avis_apres[review_date] = review_text
 
-print("Avis Avant la Sortie:")
-for date, review in avis_avant.items():
-    print(f"{date}: {review}\n")
+# print("Avis Avant la Sortie:")
+# for date, review in avis_avant.items():
+#     print(f"{date}: {review}\n")
 
 print("Avis Après la Sortie:")
 for date, review in avis_apres.items():
     print(f"{date}: {review}\n")
+#print("avis_apres", avis_apres)
