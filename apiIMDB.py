@@ -84,6 +84,14 @@ def get_movies_with_imdb_id(start_date, end_date, api_key):
 # - Date de sortie du film
 # - Nombre d'avis sur IMDb
 
+def analyze_sentiments(reviews):
+    polarities = [TextBlob(review[0]).sentiment.polarity for review in reviews]
+    subjectivities = [TextBlob(review[0]).sentiment.subjectivity for review in reviews]
+
+    avg_polarity = sum(polarities) / len(polarities) if polarities else 0
+    avg_subjectivity = sum(subjectivities) / len(subjectivities) if subjectivities else 0
+
+    return avg_polarity, avg_subjectivity
 
 def process_movies(movie_ids):
     results = []
@@ -95,15 +103,6 @@ def process_movies(movie_ids):
         results.append({'Movie ID': movie_id, 'Sentiment After': sentiment_after, 'Subjectivity After': subjectivity_after, 'Release Date': release_date, 'Nb avis': len(reviews)})
     return results
 
-
-def analyze_sentiments(reviews):
-    polarities = [TextBlob(review[0]).sentiment.polarity for review in reviews]
-    subjectivities = [TextBlob(review[0]).sentiment.subjectivity for review in reviews]
-
-    avg_polarity = sum(polarities) / len(polarities) if polarities else 0
-    avg_subjectivity = sum(subjectivities) / len(subjectivities) if subjectivities else 0
-
-    return avg_polarity, avg_subjectivity
 
 
 ############# Main #####################
