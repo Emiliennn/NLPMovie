@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analyse des sentiments des films</title>
+</head>
+<body>
+    <form action="/" method="post">
+        <label for="movie-select">Choisissez un film:</label>
+        <select name="movie" id="movie-select">
+            {% for id, title in movies_list %}
+                <option value="{{ id }}">{{ title }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Analyser les sentiments">
+    </form>
+</body>
+</html>
