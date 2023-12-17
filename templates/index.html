@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Analyse des sentiments des films</title>
+    <title>{% if movie_details %}{{ movie_details.title }}{% else %}Analyse des Films{% endif %}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #c1a8a8;
             text-align: center;
             padding: 20px;
         }
@@ -37,7 +37,9 @@
     </script>
 </head>
 <body>
-    <h1>Analyse des Sentiments des Films</h1>
+    {% if movie_details %}
+        <h1>{{ movie_details.title }}</h1>
+    {% endif %}
     <form action="/" method="post">
         <label for="movie-select">Choisissez un film:</label>
         <select name="movie" id="movie-select" onchange="updateWordCloud()">
@@ -47,6 +49,19 @@
         </select>
         <input type="submit" value="Analyser les sentiments">
     </form>
-    <img id="wordcloud-image" src="" alt="Word Cloud">
+    {% if movie_details %}
+        <img id="wordcloud-image" src="/static/wordclouds/{{ selected_movie_id }}.png" alt="Word Cloud for {{ movie_details.title }}">
+        <div>
+            <h2>Analyse des sentiments</h2>
+            {% if movie_sentiments %}
+                <p>Polarité moyenne: {{ movie_sentiments.polarity }}</p>
+                <p>Subjectivité moyenne: {{ movie_sentiments.subjectivity }}</p>
+            {% else %}
+                <p>Les sentiments ne sont pas disponibles pour ce film.</p>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Veuillez sélectionner un film pour voir les détails.</p>
+    {% endif %}
 </body>
 </html>
