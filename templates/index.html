@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Analyse des sentiments des films</title>
+    <script>
+        function updateWordCloud() {
+            var selectedMovieId = document.getElementById('movie-select').value;
+            var wordCloudImage = document.getElementById('wordcloud-image');
+            wordCloudImage.src = '/static/wordclouds/' + selectedMovieId + '.png';
+        }
+    </script>
 </head>
 <body>
     <form action="/" method="post">
         <label for="movie-select">Choisissez un film:</label>
-        <select name="movie" id="movie-select">
+        <select name="movie" id="movie-select" onchange="updateWordCloud()">
             {% for id, title in movies_list %}
                 <option value="{{ id }}">{{ title }}</option>
             {% endfor %}
         </select>
         <input type="submit" value="Analyser les sentiments">
     </form>
+    <img id="wordcloud-image" src="" alt="Word Cloud">
 </body>
 </html>
