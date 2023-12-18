@@ -49,8 +49,8 @@
         </select>
         <input type="submit" value="Analyser les sentiments">
     </form>
-    {% if movie_details %}
-        <img id="wordcloud-image" src="/static/wordclouds/{{ selected_movie_id }}.png" alt="Word Cloud for {{ movie_details.title }}">
+    {% if selected_movie_id %}
+        <img id="wordcloud-image" src="/static/wordclouds/{{ selected_movie_id }}.png" alt="Word Cloud for {{ selected_movie_title }}">
         <div>
             <h2>Analyse des sentiments</h2>
             {% if movie_sentiments %}
