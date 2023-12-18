@@ -52,13 +52,14 @@
     {% if selected_movie_id %}
         <img id="wordcloud-image" src="/static/wordclouds/{{ selected_movie_id }}.png" alt="Word Cloud for {{ selected_movie_title }}">
         <div>
-            <h2>Analyse des sentiments</h2>
-            {% if movie_sentiments %}
-                <p>Polarité moyenne: {{ movie_sentiments.polarity }}</p>
-                <p>Subjectivité moyenne: {{ movie_sentiments.subjectivity }}</p>
-            {% else %}
-                <p>Les sentiments ne sont pas disponibles pour ce film.</p>
-            {% endif %}
+            <h3>Analyse des sentiments</h3>
+            {% for avis in top_avis %}
+                <div>
+                    <p>{{ avis.content }}</p>
+                    <p>Note de l'utilisateur: {{ avis.rating }}</p>
+                    <p>Sentiment: Polarité - {{ avis.sentiment.polarity }}, Subjectivité - {{ avis.sentiment.subjectivity }}</p>
+                </div>
+            {% endfor %}
         </div>
     {% else %}
         <p>Veuillez sélectionner un film pour voir les détails.</p>
