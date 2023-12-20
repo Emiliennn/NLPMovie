@@ -48,6 +48,30 @@
             margin-top: 20px;
             font-style: italic;
         }
+        .movie {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        }
+
+        .movie img {
+        margin-right: 20px;
+        max-width: 200px; 
+        height: auto;
+        }
+
+        .movie h2 {
+        margin: 0 10px 0 0;
+        font-size: 1.5em; 
+        color: #113963; 
+        }
+
+        .movie p {
+        font-size: 1.2em;
+        color: #ebe80c;
+        }
+
+
     </style>
 </head>
 <body>
@@ -66,12 +90,13 @@
         {% if selected_genre %}
             <h2>Top 3 Films - {{ selected_genre }}</h2>
             {% if top_movies_genre %}
-                {% for movie_id, movie_title, polarity in top_movies_genre %}
-                    <div class="movie-item">
-                        <p class="movie-title">{{ movie_title }}</p>
-                        <p class="stars">{{ '★' * polarity_to_stars(polarity) }}{{ '☆' * (5 - polarity_to_stars(polarity)) }}</p>
-                    </div>
-                {% endfor %}
+            {% for movie_id, movie_title, polarity, image_url in top_movies_genre %}
+            <div class="movie">
+                <img src="{{ image_url }}" alt="{{ movie_title }}" style="max-width: 100px; height: auto;">
+                <h2>{{ movie_title }}</h2>
+                <p>{{ '★' * polarity_to_stars(polarity) }}{{ '☆' * (5 - polarity_to_stars(polarity)) }}</p>
+            </div>
+        {% endfor %}
             {% else %}
                 <p class="no-result">Aucun film trouvé pour ce genre.</p>
             {% endif %}
