@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Films par Genre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        select, input[type="submit"] {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        input[type="submit"] {
+            cursor: pointer;
+            background-color: #113963;
+            color: white;
+            border: none;
+        }
+        .movie-item {
+            margin-top: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .movie-title {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .stars {
+            color: gold;
+        }
+        .no-result {
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Top Films par Genre</h1>
+        <form action="/" method="post">
+            <label for="genre-select">Sélectionnez un genre:</label>
+            <select name="genre" id="genre-select">
+                <option value="" disabled selected style="text-align: center;">--Choisir un genre--</option>
+                {% for genre in genres %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Voir le Top 3">
+        </form>
+        {% if selected_genre %}
+            <h2>Top 3 Films - {{ selected_genre }}</h2>
+            {% if top_movies_genre %}
+                {% for movie_id, movie_title, polarity in top_movies_genre %}
+                    <div class="movie-item">
+                        <p class="movie-title">{{ movie_title }}</p>
+                        <p class="stars">{{ '★' * polarity_to_stars(polarity) }}{{ '☆' * (5 - polarity_to_stars(polarity)) }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-result">Aucun film trouvé pour ce genre.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
