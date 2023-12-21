@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie_details.title }} - Details</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px 0;
+        }
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        
+        .movie-item {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .movie-image {
+            flex: 0 0 120px;
+            width: 120px;
+            height: auto;
+            margin-right: 20px;
+        }
+        
+        .movie-info {
+            flex: 1;
+            padding: 0 20px;
+        }
+        
+        .movie-title {
+            font-size: 1.5em;
+            color: #000;
+            margin: 0;
+        }
+        
+        .movie-genre, .movie-revenue {
+            font-size: 1em;
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .stars {
+            color: #e6e44c;
+            font-size: 1.2em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+        
+            .movie-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        
+            .movie-image {
+                margin: 0 0 10px 0;
+            }
+        
+            .movie-info {
+                padding: 0;
+            }
+        } 
+    </style>   
+</head>
+<body>
+    <div class="movie-details-container">
+        <h1>{{ movie_details.title }}</h1>
+        <div class="movie-main-info">
+            <img src="{{ movie_details.details.poster_path | safe }}" alt="{{ movie_details.title }}" class="movie-poster">
+            <div class="movie-meta-info">
+                <p><strong>Genres:</strong> {{ movie_details.details.genres | join_genres }}</p>
+                <p><strong>Date de sortie:</strong> {{ movie_details.details.release_date }}</p>
+                <p><strong>Durée:</strong> {{ movie_details.details.runtime }} minutes</p>
+                <p><strong>Revenus:</strong> {{ movie_details.details.budget | format_currency }}</p>
+                <p><strong>Résumé:</strong> {{ movie_details.details.overview }}</p>
+            </div>
+        </div>
+        <div class="reviews-section">
+            <h2>Avis</h2>
+            {% for review in reviews %}
+            <div class="review-item">
+                <p class="review-content">{{ review.content }}</p>
+                <p class="review-rating">Note de l'utilisateur: {{ review.author_details.rating if review.author_details.rating else 'Non noté' }}</p>
+            </div>
+            {% else %}
+            <p class="no-reviews">Aucun avis disponible pour ce film.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
