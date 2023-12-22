@@ -88,6 +88,10 @@
                 <p><strong>Résumé:</strong> {{ movie_details.details.overview }}</p>
             </div>
         </div>
+        <div class="wordcloud-container">
+            <h2>Wordcloud du Film</h2>
+            <img src="{{ url_for('static', filename='wordclouds/' ~ movie_details.details.id ~ '.png') }}" alt="Wordcloud de {{ movie_details.title }}" class="movie-wordcloud">
+        </div>
         <div class="reviews-section">
             <h2>Avis</h2>
             {% for review in reviews %}
